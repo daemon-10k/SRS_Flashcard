@@ -1,0 +1,17 @@
+{
+  "deck_name": "Biology Basics 2",
+  "cards": [
+    {
+      "front": "What is the powerhouse of the cell?",
+      "back": "The mitochondrion"
+    },
+    {
+      "front": "What is the basic unit of life?",
+      "back": "The cell"
+    },
+    {
+      "front": "What molecule carries genetic information?",
+      "back": "DNA"
+    }
+  ]
+}
