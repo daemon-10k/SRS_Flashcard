@@ -15,7 +15,7 @@ def calculate_srs_update(quality: int, repetitions: int, ease_factor: float, int
     Returns:
         tuple: (new_repetitions, new_ease_factor, new_interval_days)
     """
-    if quality < 3:  # If recall quality is poor (e.g., < 3 on a 0-5 scale)
+    if quality < 4:  # If recall quality is poor (e.g., < 3 on a 0-5 scale)
         new_repetitions = 0  # Reset repetitions
         new_interval_days = 1  # Show again tomorrow
     else:
