@@ -1,5 +1,5 @@
 # App/page_handlers/card_display_ui.py
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QFrame
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QFrame # type: ignore
 import deck_manager
 
 def create_card_widget(card_data: dict, edit_callback, delete_callback) -> QWidget:
@@ -9,7 +9,6 @@ def create_card_widget(card_data: dict, edit_callback, delete_callback) -> QWidg
     """
     card_widget = QFrame()
     card_widget.setFrameShape(QFrame.Shape.StyledPanel)
-    # card_widget.setFrameShadow(QFrame.Shadow.Raised) # Optional shadow
 
     main_layout = QVBoxLayout(card_widget)
 
@@ -26,12 +25,11 @@ def create_card_widget(card_data: dict, edit_callback, delete_callback) -> QWidg
     edit_button = QPushButton("Edit")
     delete_button = QPushButton("Delete")
 
-    # Store card_id with buttons if needed, or pass card_data directly to callbacks
     card_id = card_data.get("id")
     edit_button.clicked.connect(lambda checked=False, c_id=card_id, c_front=card_data.get('front'), c_back=card_data.get('back'): edit_callback(c_id, c_front, c_back))
     delete_button.clicked.connect(lambda checked=False, c_id=card_id: delete_callback(c_id))
 
-    buttons_layout.addStretch() # Push buttons to the right
+    buttons_layout.addStretch()
     buttons_layout.addWidget(edit_button)
     buttons_layout.addWidget(delete_button)
     
@@ -42,8 +40,9 @@ def create_card_widget(card_data: dict, edit_callback, delete_callback) -> QWidg
 def populate_card_list(
     card_list_layout: QVBoxLayout, 
     deck_id: int,
-    edit_card_callback, # To be connected to MainWindow's edit handler
-    delete_card_callback # To be connected to MainWindow's delete handler
+    edit_card_callback,
+    delete_card_callback,
+    user_deck_db_path: str  # Pass the user's deck database path
 ):
     """
     Clears and populates the card list layout for the given deck_id.
@@ -53,7 +52,7 @@ def populate_card_list(
         if child.widget():
             child.widget().deleteLater()
             
-    cards = deck_manager.get_cards_for_deck(deck_id)
+    cards = deck_manager.get_cards_for_deck(user_deck_db_path, deck_id)  # Fetch cards from the user's database
     if cards:
         for card_data in cards:
             widget = create_card_widget(card_data, edit_card_callback, delete_card_callback)

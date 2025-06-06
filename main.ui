@@ -19,8 +19,8 @@
   <property name="windowTitle">
    <string>FlashcardApp</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
     <widget class="QStackedWidget" name="main_stackedWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -29,7 +29,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="login_page">
       <layout class="QVBoxLayout" name="login_main_verticalLayout">
@@ -364,6 +364,46 @@
           <number>7</number>
          </property>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="dashboard_logout_button">
+             <property name="text">
+              <string>Log Out</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QLabel" name="dashboard_title_label">
            <property name="maximumSize">
             <size>
@@ -395,7 +435,30 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="dashboard_goToStatistics_button">
+             <property name="text">
+              <string>Statistics</string>
+             </property>
+            </widget>
+           </item>
           </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>100</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -615,8 +678,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>69</width>
+                  <height>21</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="myDecks_list_scrollArea_outer_verticalLayout">
@@ -694,7 +757,7 @@
             </size>
            </property>
            <property name="text">
-            <string>&lt; Back to My Decks</string>
+            <string>&lt; Back</string>
            </property>
           </widget>
          </item>
@@ -769,7 +832,92 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="import_placeholder_page"/>
+     <widget class="QWidget" name="statistics_page">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="statistics_horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="statistics_goBackButton">
+           <property name="text">
+            <string>&lt; Back</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="statistics_verticalLayout">
+         <item>
+          <widget class="QLabel" name="statistics_title_label">
+           <property name="text">
+            <string>Decks Statistics</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QLabel" name="stats_totalDecks_label">
+             <property name="text">
+              <string>Total Decks:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stats_totalCards_label">
+             <property name="text">
+              <string>Total Decks:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stats_finishedCards_label">
+             <property name="text">
+              <string>Learned Cards:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stats_dueToday_label">
+             <property name="text">
+              <string>Cards Due Today:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

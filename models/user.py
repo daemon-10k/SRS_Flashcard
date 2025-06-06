@@ -2,6 +2,7 @@
 import sqlite3
 import hashlib
 import os
+import deck_manager
 
 # Determine the base directory of the 'App' folder 
 # Assumes 'user.py' is in 'App/models/', so 'App/' is its parent directory.
@@ -23,7 +24,7 @@ def _ensure_user_table_exists():
 
 def register_user(username: str, password: str) -> bool:
     """
-    Registers a new user with a hashed password.
+    Registers a new user with a hashed password and initializes a unique deck database for the user.
 
     Args:
         username: The username to register.
@@ -40,8 +41,16 @@ def register_user(username: str, password: str) -> bool:
             cursor.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)",
                            (username, hashed_pw))
             conn.commit()
+        
+        # Initialize the user's deck database using deck_manager
+        user_deck_db_path = os.path.join(DATABASE_DIR, f"{username}_decks.db")
+        if not deck_manager.init_user_decks_database(user_deck_db_path):
+            print(f"Error: Could not initialize deck database for user '{username}'.")
+            return False
+        
         return True
     except sqlite3.IntegrityError:
+        print(f"Error: Username '{username}' already exists.")
         return False
     except sqlite3.Error as e:
         print(f"Database error during registration: {e}")
@@ -68,6 +77,11 @@ def authenticate_user(username: str, password: str) -> bool:
             row = cursor.fetchone()
         
         if row and row[0] == hashed_pw_attempt:
+            # Ensure the user's deck database exists
+            user_deck_db_path = os.path.join(DATABASE_DIR, f"{username}_decks.db")
+            if not os.path.exists(user_deck_db_path):
+                print(f"Error: Deck database for user '{username}' not found.")
+                return False
             return True
         return False
     except sqlite3.Error as e:
