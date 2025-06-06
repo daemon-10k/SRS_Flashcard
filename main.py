@@ -95,6 +95,7 @@ class MainWindow(QWidget):
 
         # Card Management
         if hasattr(self, 'card_list_add_card_button'): self.card_list_add_card_button.clicked.connect(lambda: card_handler.handle_add_new_card(self))
+        if hasattr(self, 'card_list_export_deck_button'): self.card_list_export_deck_button.clicked.connect(lambda: deck_handler.handle_export_deck(self))
 
         # Review
         if hasattr(self, 'review_showAnswer_button'): self.review_showAnswer_button.clicked.connect(lambda: review_handler.handle_show_answer(self))

@@ -104,6 +104,45 @@ def import_deck_and_cards(user_deck_db_path: str, deck_name: str, cards_data: li
         print(f"Database error importing deck data for '{deck_name}': {e}")
         raise
 
+def get_deck_for_export(user_deck_db_path: str, deck_id: int) -> dict | None:
+    """
+    Fetches a deck's name and all its card data for exporting.
+
+    Args:
+        user_deck_db_path: Path to the user's deck database.
+        deck_id: ID of the deck to export.
+
+    Returns:
+        A dictionary structured for export, or None if the deck is not found.
+    """
+    export_data = {}
+    try:
+        with sqlite3.connect(user_deck_db_path) as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+
+            # First, get the deck name from the 'decks' table
+            cursor.execute("SELECT name FROM decks WHERE id = ?", (deck_id,))
+            deck_row = cursor.fetchone()
+            
+            if not deck_row:
+                print(f"Error: No deck found with id {deck_id}")
+                return None
+                
+            export_data['deck_name'] = deck_row['name']
+
+            # Next, get all cards for that deck
+            # We only export front and back to keep the format clean
+            cursor.execute("SELECT front, back FROM cards WHERE deck_id = ?", (deck_id,))
+            cards = [{"front": row["front"], "back": row["back"]} for row in cursor.fetchall()]
+            export_data['cards'] = cards
+            
+    except sqlite3.Error as e:
+        print(f"Database Error: Could not get deck for export (deck_id {deck_id}): {e}")
+        return None
+        
+    return export_data
+
 def get_all_decks(user_deck_db_path: str) -> list:
     """
     Retrieves all decks for the authenticated user.
